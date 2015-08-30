@@ -1,0 +1,13 @@
+# Site settings
+title: Introdução aos Sistemas Embutidos.
+description: > # this means to ignore newlines until "baseurl:"
+  Aulas e materiais da disciplina introdução aos sistemas embutidos.
+baseurl: "/embutidos"
+url: "http://dimasad.github.io"
+
+# Build settings
+markdown: kramdown
+
+collections:
+  aulas:
+    output: true
