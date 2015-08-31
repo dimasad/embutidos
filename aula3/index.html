@@ -12,6 +12,10 @@
 
   <link rel="stylesheet" href="/embutidos/css/main.css">
   <link rel="canonical" href="http://dimasad.github.io/embutidos/aula3/">
+
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
 </head>
 
 
@@ -55,7 +59,126 @@
   </header>
 
   <article class="post-content">
-    
+    <p>Nesta aula vamos ver a representação interna de variáveis inteiras em sistemas
+digitais e as operações bit a bit na linguagem C.
+Em seguida vamos usar essas operações para escrever nos registradores do
+microcontrolador e controlar seu comportamento usando uma interface de baixo
+nível.
+Também vamos ver como obter as informações necessárias no datasheet do 
+microcontrolador e esquemático do Arduino.</p>
+
+<h4 class="no_toc" id="ndice">Índice:</h4>
+
+<ol id="markdown-toc">
+  <li><a href="#bases-de-sistemas-numerais" id="markdown-toc-bases-de-sistemas-numerais">Bases de sistemas numerais</a></li>
+  <li><a href="#representao-de-nmeros-negativos" id="markdown-toc-representao-de-nmeros-negativos">Representação de números negativos</a></li>
+  <li><a href="#operaes-bit-a-bit" id="markdown-toc-operaes-bit-a-bit">Operações bit a bit</a></li>
+</ol>
+
+<h1 id="bases-de-sistemas-numerais">Bases de sistemas numerais</h1>
+<p>As informações em sistemas eletrônicos digitais são armazenadas internamente
+na forma de números binários.
+Para entendê-los melhor, vamos rever a representação subjacente aos números
+decimais.
+O número 139, por exemplo, e dado pela soma do produto dos seus algarismos
+pelo valor equivalente à sua posição:</p>
+
+<script type="math/tex; mode=display">1\times 10^2 + 3 \times 10^1 + 9 \times 10^0 = 100 + 30 + 9 = 139.</script>
+
+<p>A mesma lógica pode ser aplicada para outras bases diferentes de 10.
+Os números binários são a representação no sistema numeral de base 2.
+Eles possuem somente 2 algarismos, 0 e 1, e cada lugar corresponde a uma
+potência de 2. 
+Por exemplo:<sup id="fnref:repr-base"><a href="#fn:repr-base" class="footnote">1</a></sup></p>
+
+<script type="math/tex; mode=display">1011_2 = 1\times 2^3 + 0 \times 2^2 + 1\times 2^1 + 1\times 2^0 = 11_{10}.</script>
+
+<p>Cada algarismo binário é denominado <strong>bit</strong>, do inglês <em>binary digit</em>.
+Os bits são agrupados em unidades de 8 bits denominados <strong>bytes</strong>.
+A base 16, dos números <strong>hexadecimais</strong>, também é muito usada em sistemas.
+As letras A a F são usadas para representar os algarismos de 10 a 15.
+Essa representação é vantajosa pois
+cada algarismo hexadecimal corresponde a 4 bits e cada byte
+corresponde a exatamente dois dígitos hexadecimais.</p>
+
+<p>Na linguagem C, os números hexadecimais são representados com o prefixo <code>0x</code>,
+conforme representado abaixo.</p>
+
+<div class="highlight"><pre><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mh">0x11</span><span class="p">;</span> <span class="c1">// Atribui o valor 17 (em decimal) para a variável x</span></code></pre></div>
+
+<h1 id="representao-de-nmeros-negativos">Representação de números negativos</h1>
+
+<p>Em C, números negativos em binário são representados em <strong>complemento de dois</strong>.
+O bit mais significativo do número indica o sinal, 0 indicando positivo e 1
+negativo.
+Os números negativos são então obtidos invertendo todos os bits do número e
+adicionando um.
+Por exemplo: a representação em complemento de dois de <script type="math/tex">-2_{10}</script>, com 4 bits,
+obtida da seguinte forma:</p>
+
+<ul>
+  <li>obtém-se a representação em binário do número positivo, <script type="math/tex">0010_2</script>,</li>
+  <li>inverte-se todos os bits, obtendo <script type="math/tex">1101_2</script>,</li>
+  <li>soma-se 1 e se obtém <script type="math/tex">1110_2</script>.</li>
+</ul>
+
+<p>Alguns exemplos:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">base 10</th>
+      <th style="text-align: center">Complemento de 2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">-1</td>
+      <td style="text-align: center">1111</td>
+    </tr>
+  </tbody>
+  <tbody>
+    <tr>
+      <td style="text-align: center">-2</td>
+      <td style="text-align: center">1110</td>
+    </tr>
+  </tbody>
+  <tbody>
+    <tr>
+      <td style="text-align: center">-3</td>
+      <td style="text-align: center">1101</td>
+    </tr>
+  </tbody>
+  <tbody>
+    <tr>
+      <td style="text-align: center">-4</td>
+      <td style="text-align: center">1100</td>
+    </tr>
+  </tbody>
+</table>
+
+<h1 id="operaes-bit-a-bit">Operações bit a bit</h1>
+<p>A linguagem C possui diversas operações que operam bit a bit nas variáveis
+e facilitam operações com registradores:</p>
+
+<ul>
+  <li>complemento: <code>~x</code>,</li>
+  <li>e: <code>a &amp; b</code>,</li>
+  <li>ou: <code>a | b</code>,</li>
+  <li>ou exclusivo: <code>a ^ b</code>,</li>
+  <li>deslocamento para esquerda: <code>a &lt;&lt; b</code></li>
+  <li>deslocamento para direita: <code>a &gt;&gt; b</code></li>
+</ul>
+
+<div class="footnotes">
+  <ol>
+    <li id="fn:repr-base">
+
+      <p>Para simplificar a notação, vamos representar a base dos números com um
+subscrito: <script type="math/tex">10_{16} = 16_{10} = 10000_2</script>. <a href="#fnref:repr-base" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
 
   </article>
 
