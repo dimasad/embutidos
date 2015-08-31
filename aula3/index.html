@@ -72,10 +72,22 @@ microcontrolador e esquemático do Arduino.</p>
 <ol id="markdown-toc">
   <li><a href="#bases-de-sistemas-numerais" id="markdown-toc-bases-de-sistemas-numerais">Bases de sistemas numerais</a></li>
   <li><a href="#representao-de-nmeros-negativos" id="markdown-toc-representao-de-nmeros-negativos">Representação de números negativos</a></li>
-  <li><a href="#operaes-bit-a-bit" id="markdown-toc-operaes-bit-a-bit">Operações bit a bit</a></li>
+  <li><a href="#operaes-bit-a-bit" id="markdown-toc-operaes-bit-a-bit">Operações bit a bit</a>    <ol>
+      <li><a href="#operador-e" id="markdown-toc-operador-e">Operador “E”</a></li>
+      <li><a href="#operador-ou" id="markdown-toc-operador-ou">Operador “Ou”</a></li>
+      <li><a href="#operador-ou-exclusivo" id="markdown-toc-operador-ou-exclusivo">Operador “Ou exclusivo”</a></li>
+      <li><a href="#operador-deslocamento-para-esquerda" id="markdown-toc-operador-deslocamento-para-esquerda">Operador deslocamento para esquerda</a></li>
+      <li><a href="#operador-deslocamento-para-direita-sem-sinal" id="markdown-toc-operador-deslocamento-para-direita-sem-sinal">Operador deslocamento para direita (sem sinal)</a></li>
+      <li><a href="#operador-deslocamento-para-direita-com-sinal" id="markdown-toc-operador-deslocamento-para-direita-com-sinal">Operador deslocamento para direita (com sinal)</a></li>
+    </ol>
+  </li>
+  <li><a href="#registradores-das-portas-de-es" id="markdown-toc-registradores-das-portas-de-es">Registradores das portas de E/S</a></li>
+  <li><a href="#operaes-bit-a-bit-para-escrita-nos-registradores" id="markdown-toc-operaes-bit-a-bit-para-escrita-nos-registradores">Operações bit a bit para escrita nos registradores</a></li>
+  <li><a href="#lendo-o-esquemtico" id="markdown-toc-lendo-o-esquemtico">Lendo o esquemático</a></li>
 </ol>
 
 <h1 id="bases-de-sistemas-numerais">Bases de sistemas numerais</h1>
+
 <p>As informações em sistemas eletrônicos digitais são armazenadas internamente
 na forma de números binários.
 Para entendê-los melhor, vamos rever a representação subjacente aos números
@@ -158,6 +170,7 @@ obtida da seguinte forma:</p>
 </table>
 
 <h1 id="operaes-bit-a-bit">Operações bit a bit</h1>
+
 <p>A linguagem C possui diversas operações que operam bit a bit nas variáveis
 e facilitam operações com registradores:</p>
 
@@ -166,10 +179,155 @@ e facilitam operações com registradores:</p>
   <li>e: <code>a &amp; b</code>,</li>
   <li>ou: <code>a | b</code>,</li>
   <li>ou exclusivo: <code>a ^ b</code>,</li>
-  <li>deslocamento para esquerda: <code>a &lt;&lt; b</code></li>
-  <li>deslocamento para direita: <code>a &gt;&gt; b</code></li>
+  <li>deslocamento para esquerda: <code>a &lt;&lt; b</code>,</li>
+  <li>deslocamento para direita: <code>a &gt;&gt; b</code>.</li>
 </ul>
 
+<h4 id="operador-e">Operador “E”</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">a</th>
+      <th style="text-align: center">b</th>
+      <th style="text-align: center">a &amp; b</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">0</td>
+    </tr>
+  </tbody>
+  <tbody>
+    <tr>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">0</td>
+    </tr>
+  </tbody>
+  <tbody>
+    <tr>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">0</td>
+    </tr>
+  </tbody>
+  <tbody>
+    <tr>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">1</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="operador-ou">Operador “Ou”</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">a</th>
+      <th style="text-align: center">b</th>
+      <th style="text-align: center">a</th>
+      <th>b</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">0</td>
+      <td> </td>
+    </tr>
+  </tbody>
+  <tbody>
+    <tr>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">1</td>
+      <td> </td>
+    </tr>
+  </tbody>
+  <tbody>
+    <tr>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">1</td>
+      <td> </td>
+    </tr>
+  </tbody>
+  <tbody>
+    <tr>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">1</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="operador-ou-exclusivo">Operador “Ou exclusivo”</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">a</th>
+      <th style="text-align: center">b</th>
+      <th style="text-align: center">a ^ b</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">0</td>
+    </tr>
+  </tbody>
+  <tbody>
+    <tr>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">1</td>
+    </tr>
+  </tbody>
+  <tbody>
+    <tr>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">1</td>
+    </tr>
+  </tbody>
+  <tbody>
+    <tr>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">0</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="operador-deslocamento-para-esquerda">Operador deslocamento para esquerda</h4>
+
+<p><img src="/embutidos/images/Rotate_left_logically.svg" alt="deslocamento para esquerda" /></p>
+
+<h4 id="operador-deslocamento-para-direita-sem-sinal">Operador deslocamento para direita (sem sinal)</h4>
+
+<p><img src="/embutidos/images/Rotate_right_logically.svg" alt="deslocamento para direita" /></p>
+
+<h4 id="operador-deslocamento-para-direita-com-sinal">Operador deslocamento para direita (com sinal)</h4>
+
+<p><img src="/embutidos/images/Rotate_right_arithmetically.svg" alt="deslocamento para direita" /></p>
+
+<h1 id="registradores-das-portas-de-es">Registradores das portas de E/S</h1>
+
+<h1 id="operaes-bit-a-bit-para-escrita-nos-registradores">Operações bit a bit para escrita nos registradores</h1>
+
+<h1 id="lendo-o-esquemtico">Lendo o esquemático</h1>
+
+<hr />
+<p>Figuras obtidas do Wikimedia Commons.</p>
 <div class="footnotes">
   <ol>
     <li id="fn:repr-base">
