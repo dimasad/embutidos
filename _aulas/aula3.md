@@ -20,6 +20,7 @@ microcontrolador e esquemático do Arduino.
 
 Bases de sistemas numerais
 ==========================
+
 As informações em sistemas eletrônicos digitais são armazenadas internamente
 na forma de números binários.
 Para entendê-los melhor, vamos rever a representação subjacente aos números
@@ -89,6 +90,7 @@ base 10 | Complemento de 2
 
 Operações bit a bit
 ===================
+
 A linguagem C possui diversas operações que operam bit a bit nas variáveis
 e facilitam operações com registradores:
 
@@ -96,6 +98,69 @@ e facilitam operações com registradores:
 * e: `a & b`,
 * ou: `a | b`,
 * ou exclusivo: `a ^ b`,
-* deslocamento para esquerda: `a << b`
-* deslocamento para direita: `a >> b`
+* deslocamento para esquerda: `a << b`,
+* deslocamento para direita: `a >> b`.
 
+#### Operador "E" ####
+
+a  | b | a & b
+:-:|:-:|:-----:
+ 0 | 0 | 0
+---|---|------
+ 0 | 1 | 0
+---|---|------
+ 1 | 0 | 0
+---|---|------
+ 1 | 1 | 1
+---|---|------
+
+#### Operador "Ou" ####
+
+a  | b | a | b
+:-:|:-:|:-----:
+ 0 | 0 | 0
+---|---|------
+ 0 | 1 | 1
+---|---|------
+ 1 | 0 | 1
+---|---|------
+ 1 | 1 | 1
+---|---|------
+
+#### Operador "Ou exclusivo" ####
+
+a  | b | a ^ b
+:-:|:-:|:-----:
+ 0 | 0 | 0
+---|---|------
+ 0 | 1 | 1
+---|---|------
+ 1 | 0 | 1
+---|---|------
+ 1 | 1 | 0
+---|---|------
+
+#### Operador deslocamento para esquerda ####
+
+![deslocamento para esquerda]({{site.baseurl}}/images/Rotate_left_logically.svg)
+
+#### Operador deslocamento para direita (sem sinal) ####
+
+![deslocamento para direita]({{site.baseurl}}/images/Rotate_right_logically.svg)
+
+#### Operador deslocamento para direita (com sinal) ####
+
+![deslocamento para direita]({{site.baseurl}}/images/Rotate_right_arithmetically.svg)
+
+Registradores das portas de E/S
+===============================
+
+Operações bit a bit para escrita nos registradores
+==================================================
+
+Lendo o esquemático
+===================
+
+
+-------------------------------------------------------------------------------
+Figuras obtidas do Wikimedia Commons.
